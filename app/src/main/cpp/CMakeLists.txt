@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.22.1)
+project(auralis_bridge)
+add_library(auralis_rust STATIC IMPORTED)
+set_target_properties(auralis_rust PROPERTIES IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/../../../native/${ANDROID_ABI}/libauralis_core.a")
+add_library(auralis_bridge SHARED bridge.cpp)
+target_link_libraries(auralis_bridge PRIVATE auralis_rust log android dl m)
+target_compile_features(auralis_bridge PRIVATE cxx_std_17)
+target_link_options(auralis_bridge PRIVATE "-Wl,-z,max-page-size=16384")

@@ -1,0 +1,13 @@
+[package]
+name = "auralis_core"
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[profile.release]
+opt-level = "s"
+lto = true
+panic = "abort"

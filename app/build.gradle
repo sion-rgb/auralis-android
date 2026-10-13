@@ -1,0 +1,42 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'io.github.sionrgb.auralis'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'io.github.sionrgb.auralis'
+        minSdk 26; targetSdk 36; versionCode 1; versionName '1.0.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        externalNativeBuild { cmake { arguments '-DANDROID_STL=c++_static' } }
+        ndk { abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64' }
+    }
+    ndkVersion '28.2.13676358'
+    flavorDimensions += 'edition'
+    productFlavors {
+        lite { dimension 'edition'; applicationIdSuffix '.lite'; manifestPlaceholders = [appLabel:'Auralis Lite']; buildConfigField 'boolean', 'ENHANCED', 'false' }
+        full { dimension 'edition'; applicationIdSuffix '.full'; manifestPlaceholders = [appLabel:'Auralis']; buildConfigField 'boolean', 'ENHANCED', 'true' }
+    }
+    buildTypes { release { minifyEnabled false } }
+    buildFeatures { buildConfig true }
+    externalNativeBuild { cmake { path file('src/main/cpp/CMakeLists.txt'); version '3.22.1' } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    packaging {
+        jniLibs { useLegacyPackaging true; keepDebugSymbols += ['**/libpython.zip.so'] }
+        resources { excludes += ['/META-INF/AL2.0', '/META-INF/LGPL2.1', '/META-INF/DEPENDENCIES'] }
+    }
+    splits { abi { enable true; reset(); include 'arm64-v8a', 'armeabi-v7a', 'x86_64'; universalApk true } }
+}
+dependencies {
+    implementation 'androidx.activity:activity:1.11.0'
+    implementation 'androidx.media3:media3-exoplayer:1.11.0'
+    implementation 'androidx.media3:media3-exoplayer-hls:1.11.0'
+    implementation 'androidx.media3:media3-exoplayer-dash:1.11.0'
+    implementation 'androidx.media3:media3-exoplayer-rtsp:1.11.0'
+    implementation 'androidx.media3:media3-ui:1.11.0'
+    implementation 'androidx.media3:media3-effect:1.11.0'
+    fullImplementation 'org.videolan.android:libvlc-all:3.6.5'
+    fullImplementation 'io.github.junkfood02.youtubedl-android:library:0.18.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+}

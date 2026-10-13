@@ -1,0 +1,15 @@
+/.gradle/
+**/build/
+**/.cxx/
+**/.externalNativeBuild/
+/local.properties
+/core/target/
+/app/native/
+*.jks
+*.keystore
+*.pem
+*.pfx
+*.p12
+*.key
+keystore.properties
+.idea/
