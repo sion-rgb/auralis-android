@@ -36,8 +36,11 @@ public class PlayerSmokeTest {
             }
             assertTrue("No video buffers rendered",frames.get()>5);
             assertTrue("Clock did not advance",position.get()>300);
-            scenario.onActivity(a->{a.testPlayer().pause();a.testPlayer().seekTo(1500);a.testPlayer().setPlaybackSpeed(1.25f);if(BuildConfig.ENHANCED)a.testEffects();a.testPlayer().play();});
+            AtomicLong renderedTime=new AtomicLong(-1);
+            scenario.onActivity(a->{a.testPlayer().setVideoFrameMetadataListener((pts,release,format,mediaFormat)->renderedTime.set(pts));a.testPlayer().pause();a.testPlayer().seekTo(1500);a.testPlayer().setPlaybackSpeed(1.25f);if(BuildConfig.ENHANCED)a.testEffects();a.testPlayer().play();});
             SystemClock.sleep(1000);
+            for(int i=0;i<30&&renderedTime.get()<1500000;i++)SystemClock.sleep(200);
+            assertTrue("No video frame rendered after seek/effects",renderedTime.get()>=1500000);
             scenario.onActivity(a->{assertEquals(1.25f,a.testPlayer().getPlaybackParameters().speed,.01f);assertTrue(a.testPlayer().getCurrentPosition()>=1500);});
             try {
                 android.graphics.Bitmap capture=androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getUiAutomation().takeScreenshot();
