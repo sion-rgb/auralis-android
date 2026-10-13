@@ -2,7 +2,8 @@
 
 - Rust shared policy: 3 tests passed on Windows. Android instrumentation also checks the C++ JNI / Rust results.
 - Android 15 / API 35 x86_64 emulator: Lite 2 tests passed, 1 Full-only test skipped; Full 3 tests passed.
-- HLS / H.264 playback: decoder `renderedOutputBufferCount` > 5 and playback position > 300 ms, then pause, exact seek and 1.25× playback checked. Full also exercises GPU brightness, contrast and saturation processing.
+- HLS / H.264 playback: decoder `renderedOutputBufferCount` > 5 and playback position > 300 ms, then pause, exact seek and 1.25× playback checked. Full also exercises GPU brightness, contrast and saturation processing. A further focused Full run verifies that an actual decoded frame timestamp reaches at least 1.5 seconds after seek/effects; 1 test passed. The screenshot is from that run.
+- GitHub Linux release build and lint passed on commit `4ecf6b1`; [run](https://github.com/sion-rgb/auralis-android/actions/runs/38416931396). This checks source builds, not physical-device playback.
 - Full VLC: a ProRes MOV stream advances the actual VLC clock beyond 300 ms. The test HTTP server supports byte ranges, as required by that stream.
 - `lintLiteRelease` / `lintFullRelease`: 0 errors; 22 / 24 warnings, including deprecated APIs and newer-version notices. Warnings are retained in local reports, not represented as clean lint.
 - Both release builds succeeded for ARM64, ARMv7, x86_64 and universal.
