@@ -1,23 +1,28 @@
 # Auralis Android
 
-繁體中文 Android 手機影音播放器。提供精簡版與強化版，以及 ARM64、ARMv7 和通用 APK。Android 8.0（API 26）起可安裝；本次在 Android 15 模擬器驗證，手機實機與其他 Android 版本仍需測試。
+繁體中文 Android 手機影音播放器。1.1.0 修正 YouTube／YouTube Music 播放，預設在 App 內使用官方播放器。提供 Lite 精簡版與 Full 強化版，各有 ARM64、ARMv7、x86_64 和通用 APK。Android 8.0（API 26）起可安裝；本次在 Android 15 模擬器驗證，手機實機與其他 Android 版本仍需測試。
 
 | 功能 | Lite 精簡版 | Full 強化版 |
 |---|---|---|
 | 本機檔案、SAF 系統檔案選擇、多項播放清單 | ✓ | ✓ |
 | 直接媒體、HLS／DASH／RTSP、倍速、跳轉、SRT 字幕、多音軌 | ✓ | ✓ |
-| YouTube／嗶哩嗶哩網站模式 | ✓ | ✓ |
+| YouTube／YouTube Music App 內官方播放器 | ✓ | ✓ |
+| 嗶哩嗶哩等原網站模式 | ✓ | ✓ |
 | 網站連結解析為原生串流 | — | yt-dlp；視網站限制而定 |
 | VLC 兼容解碼 | — | ✓ |
 | 原音、人聲、音樂、電影等化器風格 | — | ✓ |
 | 原生播放亮度、對比、飽和度 | — | ✓ |
 | DLSS 5／RTX VSR／AI 插幀 | — | — |
 
-Media3 使用 Android 支援的解碼器；Full 的 VLC 兼容模式提供更多軟件解碼格式。不保證每種檔案、編碼或裝置均可播放。Full 的畫面調整適用於 Media3 原生模式，音效亦支援 VLC；網站模式由網站本身控制。網站解析可能被登入、地域、DRM 或反機械人限制阻擋，本次 YouTube／嗶哩嗶哩的抽取測試遇到網站限制，沒有宣稱已驗證登入內容播放。
+Media3 使用 Android 支援的解碼器；Full 的 VLC 兼容模式提供更多軟件解碼格式。不保證每種檔案、編碼或裝置均可播放。Full 的畫面調整適用於 Media3 原生模式，音效亦支援 VLC；網站播放時音畫調整停用，由網站本身控制。
+
+貼上 YouTube 或 YouTube Music 單曲連結後，App 內官方播放器可播放／暫停、跳轉及調速，保留官方控制與廣告；Music 單曲播放不等於完整 Music 訂閱功能。Full 的「原生串流」另行嘗試 yt-dlp，失敗時回到官方播放器；「原網站」在 App 內開啟來源頁面。登入、地域、DRM、付費或禁止嵌入的影片仍受網站限制。此更新驗證公開 YouTube／Music 範例，沒有宣稱所有登入內容或嗶哩嗶哩影片均可播放。
 
 下載：[Releases](https://github.com/sion-rgb/auralis-android/releases)。一般新手機選 `arm64-v8a`；舊款 32 位手機選 `armeabi-v7a`；不確定選 `universal`。Lite 和 Full 的套件名稱不同，可同時安裝。APK 為開發者本機發佈金鑰簽署，不是 Google Play 商店版本。
 
 ![Auralis 手機版](docs/screenshots/android-full.png)
+
+![YouTube Music 官方播放器，Full 1.1.0](docs/screenshots/youtube-music-full-1.1.png)
 
 ## 技術選擇
 
